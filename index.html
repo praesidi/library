@@ -4,11 +4,64 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="img/favicon.ico" />
+    <link rel="icon" href="img/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bokor&family=Montserrat:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles/normalize.css" />
     <link rel="stylesheet" href="styles/style.css" />
     <script type="text/javascript" src="scripts/script.js" defer></script>
     <title>Title</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="img/logo.png" alt="" />
+        <p>Library</p>
+      </div>
+      <div class="login-btn">
+        <button>Log In</button>
+      </div>
+    </header>
+    <main class="main">
+      <div class="container">
+        <div class="item"></div>
+      </div>
+      <div class="sidebar">
+        <div class="add-btn">
+          <button>
+            <i class="fa-solid fa-plus"></i>
+            Add
+          </button>
+        </div>
+        <div class="stats-panel">
+          <ul>
+            <li>Total Books: <span>0</span></li>
+            <li>Read: <span>0</span></li>
+            <li>Not Read: <span>0</span></li>
+            <li>Total Pages: <span>0</span></li>
+          </ul>
+        </div>
+        <div class="delete-btn">
+          <button>
+            <i class="fa-solid fa-trash"></i>
+            Delete All
+          </button>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <p>
+        © Made by <a href="https://github.com/Praesidi">Praesidi</a> for
+        <a href="https://www.theodinproject.com/">The Odin Project</a>
+      </p>
+    </footer>
+  </body>
 </html>
