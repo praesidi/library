@@ -55,34 +55,46 @@ body {
   width: 100px;
   height: 30px;
   font-weight: 600;
-  outline: none;
   border: none;
   background: var(--secondary-color);
   color: var(--primary-color);
   border-radius: var(--button-border-radius);
 }
 
+.login-btn button:focus {
+  outline: none;
+}
+
 .main {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: auto auto;
-  height: 100%;
+  height: calc(100% - 100px);
   background: whitesmoke;
 }
 
 .container {
   grid-column: 1 / 11;
-  grid-row: 1 / 3;
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  overflow-y: scroll;
+}
+
+.item {
+  background: var(--secondary-color);
+  width: 200px;
+  height: 300px;
+  justify-self: center;
+  border-radius: var(--element-border-radius);
 }
 
 .sidebar {
   grid-column: 11 / 13;
-  grid-row: 1 / 3;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 3fr 1fr;
   justify-items: center;
-  height: 100%;
   background: var(--sidebar-color);
 }
 
@@ -105,6 +117,31 @@ body {
   margin-bottom: 50px;
 }
 
+.add-btn button {
+  width: min(80%, 150px);
+  height: 40px;
+  font-weight: 600;
+  border: none;
+  background: var(--add-button-color);
+  color: var(--light-font-color);
+  border-radius: var(--button-border-radius);
+}
+
+.delete-btn button {
+  width: min(80%, 150px);
+  height: 40px;
+  font-weight: 600;
+  border: none;
+  background: var(--delete-button-color);
+  color: var(--light-font-color);
+  border-radius: var(--button-border-radius);
+}
+
+.add-btn button:focus,
+.delete-btn button:focus {
+  outline: none;
+}
+
 .stats-panel {
   grid-row: 2 / 3;
   align-self: start;
@@ -113,7 +150,6 @@ body {
   width: 70%;
   height: 40%;
   padding: 15px;
-  overflow-y: hidden;
 }
 
 .stats-panel ul {
@@ -131,28 +167,6 @@ body {
 .stats-panel li span {
   font-weight: 500;
   color: var(--alt-dark-font-color);
-}
-
-.add-btn button {
-  width: min(80%, 150px);
-  height: 40px;
-  font-weight: 600;
-  outline: none;
-  border: none;
-  background: var(--add-button-color);
-  color: var(--light-font-color);
-  border-radius: var(--button-border-radius);
-}
-
-.delete-btn button {
-  width: min(80%, 150px);
-  height: 40px;
-  font-weight: 600;
-  outline: none;
-  border: none;
-  background: var(--delete-button-color);
-  color: var(--light-font-color);
-  border-radius: var(--button-border-radius);
 }
 
 .footer {
