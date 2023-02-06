@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bokor&family=Montserrat:wght@200;300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bokor&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/normalize.css" />
@@ -32,11 +32,29 @@
     </header>
     <main class="main">
       <div class="container">
-        <div class="item"></div>
+        <div class="item">
+          <div class="item-delete-btn">
+            <button id="delete-book-btn">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="item-description">
+            <p class="item-title">Harry Potter and the Philosopher's Stone</p>
+            <p class="item-author">J. K. Rowling</p>
+            <p class="item-pages">Pages: <span>359</span></p>
+          </div>
+          <div class="item-status">
+            <label
+              ><input type="checkbox" name="" id="book-status-checkbox" />
+              Read</label
+            >
+          </div>
+          <!-- <div class="item-background"></div> -->
+        </div>
       </div>
       <div class="sidebar">
         <div class="add-btn">
-          <button>
+          <button id="add-book-btn">
             <i class="fa-solid fa-plus"></i>
             Add
           </button>
@@ -50,7 +68,7 @@
           </ul>
         </div>
         <div class="delete-btn">
-          <button>
+          <button id="delete-all-btn">
             <i class="fa-solid fa-trash"></i>
             Delete All
           </button>
