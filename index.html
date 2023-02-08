@@ -44,12 +44,11 @@
             <p class="item-pages">Pages: <span>359</span></p>
           </div>
           <div class="item-status">
-            <label
-              ><input type="checkbox" name="" id="book-status-checkbox" />
-              Read</label
-            >
+            <label>
+              <input type="checkbox" name="" id="book-status-checkbox" />
+              Read
+            </label>
           </div>
-          <!-- <div class="item-background"></div> -->
         </div>
       </div>
       <div class="sidebar">
@@ -81,5 +80,36 @@
         <a href="https://www.theodinproject.com/">The Odin Project</a>
       </p>
     </footer>
+    <div class="modal" id="modal">
+      <div class="modal-content" id="modal-content">
+        <div class="modal-close-btn" id="modal-close-btn">
+          <button>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <h2 class="modal-title">Add new book</h2>
+        <form action="" class="modal-form">
+          <label for="">
+            Title
+            <input type="text" />
+          </label>
+          <label for="">
+            Author
+            <input type="text" />
+          </label>
+          <label for="">
+            Pages
+            <input type="number" />
+          </label>
+          <label for="">
+            <input type="checkbox" />
+            Have you already read this book?
+          </label>
+        </form>
+        <div class="modal-submit-btn">
+          <button type="submit">Submit</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
