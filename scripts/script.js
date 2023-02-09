@@ -1,29 +1,30 @@
 const addBookBtn = document.getElementById('add-book-btn');
-const deleteBookBtn = document.getElementById('delete-book-btn');
 const deleteAllBtn = document.getElementById('delete-all-btn');
-const bookStatusCheckbox = document.getElementById('item-status-checkbox');
+// const deleteBookBtn = document.getElementById('delete-book-btn');
+// const bookStatusCheckbox = document.getElementById('item-status-checkbox');
 const modal = document.getElementById('modal');
 const modalCloseBtn = document.getElementById('modal-close-btn');
 const bookTitleInput = document.getElementById('book-title');
 const bookAuthorInput = document.getElementById('book-author');
 const bookPagesInput = document.getElementById('book-pages');
 const bookStatusInput = document.getElementById('book-status');
-const formSubmitBtn = document.getElementById('form-submit-btn');
 const booksContainer = document.getElementById('books-container');
 const form = document.getElementById('add-book-form');
 
-// const formInputs = [];
-
-// let myLibrary = [];
+let myLibrary = [];
 
 function Book(title, author, pages, isRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.isRead = isRead;
+  this.pushToLibrary = function () {
+    myLibrary.push(this);
+  };
+  this.pushToLibrary();
 }
 
-function createBookCard() {
+Book.prototype.createBookCard = function () {
   // create a card
   const card = document.createElement('div');
   card.classList.add('item');
@@ -50,14 +51,17 @@ function createBookCard() {
   const cardTitle = document.createElement('p');
   cardTitle.classList.add('item-title');
   descriptionContainer.appendChild(cardTitle);
+  cardTitle.textContent = this.title;
 
   const cardAuthor = document.createElement('p');
   cardAuthor.classList.add('item-author');
   descriptionContainer.appendChild(cardAuthor);
+  cardAuthor.textContent = this.author;
 
   const cardPages = document.createElement('p');
   cardPages.classList.add('item-pages');
   descriptionContainer.appendChild(cardPages);
+  cardPages.textContent = this.pages;
 
   const cardPagesSpan = document.createElement('span');
   cardPages.appendChild(cardPagesSpan);
@@ -77,30 +81,52 @@ function createBookCard() {
 
   const cardStatusText = document.createElement('span');
   cardStatusLabel.appendChild(cardStatusText);
-  cardStatusText.textContent = ' Read';
+  if (this.isRead) {
+    cardStatusText.textContent = ' Read';
+    cardStatusCheckbox.checked = true;
+  } else {
+    cardStatusText.textContent = ' Not Read';
+    cardStatusCheckbox.checked = false;
+  }
+};
+
+function populateLibrary() {
+  booksContainer.textContent = '';
+  myLibrary.forEach((book) => {
+    book.createBookCard();
+  });
 }
 
 function addBookToLibrary() {
-  const title = bookTitleInput.value;
-  const author = bookAuthorInput.value;
-  const pages = bookPagesInput.value;
-  const isRead = bookStatusInput.checked;
-
-  const book = Book(title, author, pages, isRead);
-  console.log(book);
+  const book = new Book(
+    bookTitleInput.value,
+    bookAuthorInput.value,
+    bookPagesInput.value,
+    bookStatusInput.checked
+  );
 }
 
 function clearForm() {
   form.reset();
 }
 
+function clearLibrary() {
+  myLibrary = [];
+  booksContainer.textContent = '';
+}
+
+// submit button in the form
 function handleForm(event) {
   event.preventDefault();
   addBookToLibrary();
+  populateLibrary();
 }
 
 form.addEventListener('submit', handleForm);
 
+deleteAllBtn.addEventListener('click', clearLibrary);
+
+// modal box
 addBookBtn.addEventListener('click', function () {
   modal.style.display = 'flex';
 });
