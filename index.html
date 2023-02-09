@@ -31,7 +31,7 @@
       </div>
     </header>
     <main class="main">
-      <div class="container">
+      <div class="container" id="books-container">
         <div class="item">
           <div class="item-delete-btn">
             <button id="delete-book-btn">
@@ -45,8 +45,8 @@
           </div>
           <div class="item-status">
             <label>
-              <input type="checkbox" name="" id="book-status-checkbox" />
-              Read
+              <input type="checkbox" name="" id="item-status-checkbox" />
+              <span>Read</span>
             </label>
           </div>
         </div>
@@ -88,27 +88,27 @@
           </button>
         </div>
         <h2 class="modal-title">Add new book</h2>
-        <form action="" class="modal-form">
-          <label for="">
+        <form action="" class="modal-form" id="add-book-form">
+          <label>
             Title
-            <input type="text" />
+            <input type="text" id="book-title" required />
           </label>
-          <label for="">
+          <label>
             Author
-            <input type="text" />
+            <input type="text" required id="book-author" required />
           </label>
-          <label for="">
+          <label>
             Pages
-            <input type="number" />
+            <input type="number" id="book-pages" min="1" required />
           </label>
-          <label for="">
-            <input type="checkbox" />
+          <label>
+            <input type="checkbox" id="book-status" />
             Have you already read this book?
           </label>
+          <div class="modal-submit-btn">
+            <button type="submit">Submit</button>
+          </div>
         </form>
-        <div class="modal-submit-btn">
-          <button type="submit">Submit</button>
-        </div>
       </div>
     </div>
   </body>
