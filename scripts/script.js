@@ -1,15 +1,24 @@
+// sidebar buttons
 const addBookBtn = document.getElementById('add-book-btn');
 const deleteAllBtn = document.getElementById('delete-all-btn');
+// sidebar stats
+const booksCounter = document.getElementById('total-books-counter');
+const readBooksCounter = document.getElementById('read-books-counter');
+const notReadBooksCounter = document.getElementById('not-read-books-counter');
+const pagesCounter = document.getElementById('total-pages-counter');
 // const deleteBookBtn = document.getElementById('delete-book-btn');
-// const bookStatusCheckbox = document.getElementById('item-status-checkbox');
+const bookStatusCheckbox = document.getElementById('item-status-checkbox');
+// modal
+const form = document.getElementById('add-book-form');
 const modal = document.getElementById('modal');
 const modalCloseBtn = document.getElementById('modal-close-btn');
+// book's container
+const booksContainer = document.getElementById('books-container');
+// book card
 const bookTitleInput = document.getElementById('book-title');
 const bookAuthorInput = document.getElementById('book-author');
 const bookPagesInput = document.getElementById('book-pages');
 const bookStatusInput = document.getElementById('book-status');
-const booksContainer = document.getElementById('books-container');
-const form = document.getElementById('add-book-form');
 
 let myLibrary = [];
 
@@ -88,13 +97,47 @@ Book.prototype.createBookCard = function () {
     cardStatusText.textContent = ' Not Read';
     cardStatusCheckbox.checked = false;
   }
+  // add data attribute to handle id
+  card.setAttribute('data-id', myLibrary.length - 1);
 };
+
+Book.prototype.deleteBookCard = function () {};
+
+Book.prototype.changeBookStatus = function () {
+  // if (this.isRead)
+};
+
+function updateSidebarCounter() {
+  // total books
+  booksCounter.textContent = `${myLibrary.length}`;
+
+  // read books
+  let readNum = 0;
+  myLibrary.forEach((book) => {
+    if (book.isRead) {
+      readNum++;
+    }
+  });
+  readBooksCounter.textContent = `${readNum}`;
+
+  // not read books
+  const notReadNum = myLibrary.length - readNum;
+  notReadBooksCounter.textContent = `${notReadNum}`;
+
+  // total pages number
+  let pagesNum = 0;
+  myLibrary.forEach((book) => {
+    pagesNum += Number(book.pages);
+  });
+  pagesCounter.textContent = `${pagesNum}`;
+}
 
 function populateLibrary() {
   booksContainer.textContent = '';
   myLibrary.forEach((book) => {
     book.createBookCard();
   });
+  updateSidebarCounter();
 }
 
 function addBookToLibrary() {
@@ -113,6 +156,7 @@ function clearForm() {
 function clearLibrary() {
   myLibrary = [];
   booksContainer.textContent = '';
+  updateSidebarCounter();
 }
 
 // submit button in the form
@@ -125,6 +169,8 @@ function handleForm(event) {
 form.addEventListener('submit', handleForm);
 
 deleteAllBtn.addEventListener('click', clearLibrary);
+
+bookStatusCheckbox.addEventListener('change', this.changeBookStatus);
 
 // modal box
 addBookBtn.addEventListener('click', function () {
