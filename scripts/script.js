@@ -1,18 +1,14 @@
-// sidebar buttons
 const addBookBtn = document.getElementById('add-book-btn');
 const deleteAllBtn = document.getElementById('delete-all-btn');
-// sidebar stats
 const booksCounter = document.getElementById('total-books-counter');
 const readBooksCounter = document.getElementById('read-books-counter');
 const notReadBooksCounter = document.getElementById('not-read-books-counter');
 const pagesCounter = document.getElementById('total-pages-counter');
-// modal
 const form = document.getElementById('add-book-form');
 const modal = document.getElementById('modal');
 const modalCloseBtn = document.getElementById('modal-close-btn');
-// book's container
 const booksContainer = document.getElementById('books-container');
-// book card
+
 const bookTitleInput = document.getElementById('book-title');
 const bookAuthorInput = document.getElementById('book-author');
 const bookPagesInput = document.getElementById('book-pages');
@@ -28,7 +24,7 @@ function Book(title, author, pages, isRead) {
     myLibrary.push(this);
   };
   this.pushToLibrary();
-  this.id = myLibrary.length; // set id
+  this.id = Date.now();
 }
 
 function updateSidebarCounter() {
@@ -56,27 +52,23 @@ function updateSidebarCounter() {
   pagesCounter.textContent = `${pagesNum}`;
 }
 
-// fix bug when after deleting first obj and adding new one added object changes its vales
 function deleteBookCard(event) {
   const bookId = event.target.parentNode.parentNode.getAttribute('data-id');
   const bookCard = event.target.parentNode.parentNode;
-  const bookIndex = myLibrary.findIndex((book) => book.id === bookId);
-  // console.log(bookId, bookIndex);
-  console.log(`hi, I am an item #${bookId}, index${bookIndex}`);
+  const bookIndex = myLibrary.findIndex((book) => book.id === Number(bookId));
   bookCard.remove();
   myLibrary.splice(bookIndex, 1);
   updateSidebarCounter();
 }
 
 function changeBookStatus(event) {
-  const bookId =
-    event.target.parentNode.parentNode.parentNode.getAttribute('data-id');
+  const bookId = Number(
+    event.target.parentNode.parentNode.parentNode.getAttribute('data-id')
+  );
   const bookIndex = myLibrary.findIndex((book) => book.id === bookId);
   const checkboxStatus = event.target.checked;
-  console.log(myLibrary.findIndex((book) => book.id === bookId));
-  console.log(bookId, bookIndex, myLibrary[bookIndex]);
   myLibrary[bookIndex].isRead = checkboxStatus;
-  console.log(`book #${bookId} is read ${myLibrary[bookIndex].isRead}`);
+  updateSidebarCounter();
 }
 
 Book.prototype.createBookCard = function () {
@@ -113,7 +105,7 @@ Book.prototype.createBookCard = function () {
 function populateLibrary() {
   booksContainer.textContent = '';
   myLibrary.forEach((book) => {
-    booksContainer.innerHTML += book.createBookCard(); // issue here
+    booksContainer.innerHTML += book.createBookCard();
   });
   updateSidebarCounter();
 }
@@ -137,7 +129,6 @@ function clearLibrary() {
   updateSidebarCounter();
 }
 
-// submit button in the form
 function handleForm(event) {
   event.preventDefault();
   addBookToLibrary();
