@@ -31,26 +31,7 @@
       </div>
     </header>
     <main class="main">
-      <div class="container" id="books-container">
-        <div class="item">
-          <div class="item-delete-btn">
-            <button id="delete-book-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="item-description">
-            <p class="item-title">Harry Potter and the Philosopher's Stone</p>
-            <p class="item-author">J. K. Rowling</p>
-            <p class="item-pages">Pages: <span>359</span></p>
-          </div>
-          <div class="item-status">
-            <label>
-              <input type="checkbox" name="" id="item-status-checkbox" />
-              <span>Read</span>
-            </label>
-          </div>
-        </div>
-      </div>
+      <div class="container" id="books-container"></div>
       <div class="sidebar">
         <div class="add-btn">
           <button id="add-book-btn">
@@ -99,7 +80,7 @@
           </label>
           <label>
             Pages
-            <input type="number" id="book-pages" min="1" required />
+            <input type="number" id="book-pages" min="1" max="9999" required />
           </label>
           <label>
             <input type="checkbox" id="book-status" />
