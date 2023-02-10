@@ -130,11 +130,16 @@ body {
 }
 
 .item-delete-btn button {
+  cursor: pointer;
   background: transparent;
   border: none;
   font-size: 20px;
   color: var(--delete-button-color);
   transition: transform 0.2s ease-in-out;
+}
+
+.item-delete-btn button i {
+  pointer-events: none;
 }
 
 .item-delete-btn button:focus {
