@@ -6,8 +6,6 @@ const booksCounter = document.getElementById('total-books-counter');
 const readBooksCounter = document.getElementById('read-books-counter');
 const notReadBooksCounter = document.getElementById('not-read-books-counter');
 const pagesCounter = document.getElementById('total-pages-counter');
-// const deleteBookBtn = document.getElementById('delete-book-btn');
-const bookStatusCheckbox = document.getElementById('item-status-checkbox');
 // modal
 const form = document.getElementById('add-book-form');
 const modal = document.getElementById('modal');
@@ -21,7 +19,6 @@ const bookPagesInput = document.getElementById('book-pages');
 const bookStatusInput = document.getElementById('book-status');
 
 let myLibrary = [];
-
 function Book(title, author, pages, isRead) {
   this.title = title;
   this.author = author;
@@ -31,81 +28,8 @@ function Book(title, author, pages, isRead) {
     myLibrary.push(this);
   };
   this.pushToLibrary();
+  this.id = myLibrary.length; // set id
 }
-
-Book.prototype.createBookCard = function () {
-  // create a card
-  const card = document.createElement('div');
-  card.classList.add('item');
-  booksContainer.appendChild(card);
-
-  // add delete button
-  const deleteBtnContainer = document.createElement('div');
-  deleteBtnContainer.classList.add('item-delete-btn');
-  card.appendChild(deleteBtnContainer);
-
-  const deleteBtn = document.createElement('button');
-  deleteBtn.id = 'delete-book-btn';
-  deleteBtnContainer.appendChild(deleteBtn);
-
-  const deleteBtnIcon = document.createElement('i');
-  deleteBtnIcon.classList.add('fa-solid', 'fa-xmark');
-  deleteBtn.appendChild(deleteBtnIcon);
-
-  // add description
-  const descriptionContainer = document.createElement('div');
-  descriptionContainer.classList.add('item-description');
-  card.appendChild(descriptionContainer);
-
-  const cardTitle = document.createElement('p');
-  cardTitle.classList.add('item-title');
-  descriptionContainer.appendChild(cardTitle);
-  cardTitle.textContent = this.title;
-
-  const cardAuthor = document.createElement('p');
-  cardAuthor.classList.add('item-author');
-  descriptionContainer.appendChild(cardAuthor);
-  cardAuthor.textContent = this.author;
-
-  const cardPages = document.createElement('p');
-  cardPages.classList.add('item-pages');
-  descriptionContainer.appendChild(cardPages);
-  cardPages.textContent = this.pages;
-
-  const cardPagesSpan = document.createElement('span');
-  cardPages.appendChild(cardPagesSpan);
-
-  // add checkbox for status
-  const cardStatusContainer = document.createElement('div');
-  cardStatusContainer.classList.add('item-status');
-  card.appendChild(cardStatusContainer);
-
-  const cardStatusLabel = document.createElement('label');
-  cardStatusContainer.appendChild(cardStatusLabel);
-
-  const cardStatusCheckbox = document.createElement('input');
-  cardStatusCheckbox.id = 'item-status-checkbox';
-  cardStatusCheckbox.type = 'checkbox';
-  cardStatusLabel.appendChild(cardStatusCheckbox);
-
-  const cardStatusText = document.createElement('span');
-  cardStatusLabel.appendChild(cardStatusText);
-  if (this.isRead) {
-    cardStatusText.textContent = ' Read';
-    cardStatusCheckbox.checked = true;
-  } else {
-    cardStatusText.textContent = ' Not Read';
-    cardStatusCheckbox.checked = false;
-  }
-  // add data attribute to handle id
-  card.setAttribute('data-id', myLibrary.length - 1);
-};
-
-Book.prototype.deleteBookCard = function () {};
-
-Book.prototype.changeBookStatus = function () {
-  // if (this.isRead)
-};
 
 function updateSidebarCounter() {
   // total books
@@ -132,10 +56,64 @@ function updateSidebarCounter() {
   pagesCounter.textContent = `${pagesNum}`;
 }
 
+// fix bug when after deleting first obj and adding new one added object changes its vales
+function deleteBookCard(event) {
+  const bookId = event.target.parentNode.parentNode.getAttribute('data-id');
+  const bookCard = event.target.parentNode.parentNode;
+  const bookIndex = myLibrary.findIndex((book) => book.id === bookId);
+  // console.log(bookId, bookIndex);
+  console.log(`hi, I am an item #${bookId}, index${bookIndex}`);
+  bookCard.remove();
+  myLibrary.splice(bookIndex, 1);
+  updateSidebarCounter();
+}
+
+function changeBookStatus(event) {
+  const bookId =
+    event.target.parentNode.parentNode.parentNode.getAttribute('data-id');
+  const bookIndex = myLibrary.findIndex((book) => book.id === bookId);
+  const checkboxStatus = event.target.checked;
+  console.log(myLibrary.findIndex((book) => book.id === bookId));
+  console.log(bookId, bookIndex, myLibrary[bookIndex]);
+  myLibrary[bookIndex].isRead = checkboxStatus;
+  console.log(`book #${bookId} is read ${myLibrary[bookIndex].isRead}`);
+}
+
+Book.prototype.createBookCard = function () {
+  const cardStart = String.raw`
+    <div class="item" data-id="${this.id}">
+    <div class="item-delete-btn">
+      <button id="delete-book-btn" onclick="deleteBookCard(event)">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="item-description">
+      <p class="item-title">${this.title}</p>
+      <p class="item-author">${this.author}</p>
+      <p class="item-pages">Pages: <span>${this.pages}</span></p>
+    </div>
+    <div class="item-status">
+      <label>
+        <input type="checkbox" name="book status"`;
+
+  let cardMid = ``;
+  if (this.isRead) {
+    cardMid = ` checked`;
+  }
+
+  const cardEnd = String.raw` onchange="changeBookStatus(event)" />
+        <span>Read</span>
+      </label>
+    </div>
+  </div>`;
+
+  return cardStart + cardMid + cardEnd;
+};
+
 function populateLibrary() {
   booksContainer.textContent = '';
   myLibrary.forEach((book) => {
-    book.createBookCard();
+    booksContainer.innerHTML += book.createBookCard(); // issue here
   });
   updateSidebarCounter();
 }
@@ -169,8 +147,6 @@ function handleForm(event) {
 form.addEventListener('submit', handleForm);
 
 deleteAllBtn.addEventListener('click', clearLibrary);
-
-bookStatusCheckbox.addEventListener('change', this.changeBookStatus);
 
 // modal box
 addBookBtn.addEventListener('click', function () {
