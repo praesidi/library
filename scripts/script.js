@@ -119,8 +119,13 @@ function addBookToLibrary() {
   );
 }
 
-function clearForm() {
+function resetForm() {
   form.reset();
+}
+
+function clearFormInputs() {
+  form.reset();
+  return false;
 }
 
 function clearLibrary() {
@@ -133,6 +138,7 @@ function handleForm(event) {
   event.preventDefault();
   addBookToLibrary();
   populateLibrary();
+  clearFormInputs();
 }
 
 form.addEventListener('submit', handleForm);
@@ -146,12 +152,12 @@ addBookBtn.addEventListener('click', function () {
 
 modalCloseBtn.addEventListener('click', function () {
   modal.style.display = 'none';
-  clearForm();
+  resetForm();
 });
 
 window.addEventListener('click', function (e) {
   if (e.target === modal) {
     modal.style.display = 'none';
-    clearForm();
+    resetForm();
   }
 });
