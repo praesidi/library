@@ -15,16 +15,25 @@ const bookPagesInput = document.getElementById('book-pages');
 const bookStatusInput = document.getElementById('book-status');
 
 let myLibrary = [];
-function Book(title, author, pages, isRead) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
-  this.pushToLibrary = function () {
+
+class Book {
+  constructor(title, author, pages, isRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+    this.id = this.createID();
+    this.pushToLibrary();
+  }
+
+  pushToLibrary() {
     myLibrary.push(this);
-  };
-  this.pushToLibrary();
-  this.id = Date.now();
+  }
+
+  createID() {
+    this._id = Date.now();
+    return this._id;
+  }
 }
 
 function updateSidebarCounter() {
